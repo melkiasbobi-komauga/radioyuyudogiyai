@@ -1,0 +1,22 @@
+# MATIKAN EKSEKUSI SCRIPT PHP
+# Mencegah file .php, .php5, .phtml dijalankan di folder ini
+# Ini melindungi server dari file berbahaya yang mungkin terupload
+<FilesMatch "\.(php|php5|phtml|phar|shtml|cgi|pl)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# MATIKAN PHP ENGINE (Jika Server Menggunakan Apache & Mod PHP)
+<IfModule mod_php5.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+# MENCEGAH DIRECTORY LISTING
+# Pengunjung tidak bisa melihat daftar semua file di folder ini
+Options -Indexes
