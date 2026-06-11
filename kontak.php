@@ -16,7 +16,7 @@ $iframe_peta = $kontak_db['iframe_peta'] ?? '';
 ?>
 
 <!-- HERO SECTION -->
-<section class="page-header position-relative d-flex align-items-center justify-content-center" style="width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); background: linear-gradient(135deg, #1a237e 0%, #0d1346 100%); margin-top: -25px; padding-top: 100px !important; padding-bottom: 80px !important; overflow: hidden;">
+<section class="page-header position-relative d-flex align-items-center justify-content-center" style="width: 100%; background: linear-gradient(135deg, #1a237e 0%, #0d1346 100%); margin-top: -25px; padding-top: 100px !important; padding-bottom: 80px !important; overflow: hidden;">
     <div class="container text-center text-white position-relative" style="z-index: 2;">
         <h1 class="article-title mb-2 fw-bold display-5" style="font-family: 'Teko', sans-serif;">HUBUNGI KAMI</h1>
         <p class="lead opacity-90 mx-auto fs-6">Kami siap mendengar masukan dan saran Anda.</p>
@@ -85,7 +85,7 @@ $iframe_peta = $kontak_db['iframe_peta'] ?? '';
                     <h4 class="card-title m-0 fw-bold font-outfit"><i class="fas fa-paper-plane me-2"></i> Kirim Pesan</h4>
                     <p class="mb-0 small opacity-75 mt-1">Kami akan membalas pesan Anda melalui email.</p>
                 </div>
-                <div class="card-body p-4 p-md-5 bg-white">
+                <div class="card-body p-3 p-md-4 bg-white">
                     <form action="proses_kontak.php" method="POST">
                         <div class="row g-3">
                             <!-- Nama Pengirim -->
@@ -182,6 +182,54 @@ $iframe_peta = $kontak_db['iframe_peta'] ?? '';
         border: 0;
         width: 100%;
         height: 100%;
+    }
+    
+    /* Responsive Hero Section */
+    @media (max-width: 768px) {
+        .page-header {
+            padding-top: 80px !important;
+            padding-bottom: 60px !important;
+        }
+        .page-header .display-5 {
+            font-size: 2rem;
+        }
+    }
+    
+    @media (max-width: 575px) {
+        .page-header {
+            padding-top: 60px !important;
+            padding-bottom: 40px !important;
+        }
+        .page-header .display-5 {
+            font-size: 1.5rem;
+        }
+        .page-header .lead {
+            font-size: 0.9rem;
+        }
+    }
+    
+    /* Responsive Contact Form */
+    @media (max-width: 768px) {
+        .col-lg-7, .col-lg-4 {
+            margin-bottom: 20px;
+        }
+    }
+    
+    @media (max-width: 575px) {
+        .card-header {
+            padding: 1.5rem !important;
+        }
+        .card-body {
+            padding: 1rem !important;
+        }
+        .form-control {
+            padding: 10px 12px;
+            font-size: 16px;
+        }
+        .btn {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+        }
     }
 </style>
 

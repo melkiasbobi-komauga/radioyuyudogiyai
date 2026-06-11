@@ -44,8 +44,8 @@ if (strlen($f_deskripsi) > 200) {
 </div>
 
 <!-- PEMUTAR PODCAST FIXED -->
-<div id="podcast-player-container" class="fixed-bottom bg-dark text-white p-3 shadow-lg border-top border-warning" style="display:none; z-index: 1050;">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+<div id="podcast-player-container" class="fixed-bottom bg-dark text-white p-2 p-md-3 shadow-lg border-top border-warning" style="display:none; z-index: 1050;">
+    <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap gap-2">
         <div class="d-flex align-items-center flex-grow-1 overflow-hidden">
             <div class="bg-warning text-dark rounded-circle p-2 me-3 d-flex justify-content-center align-items-center flex-shrink-0" style="width:40px; height:40px;">
                 <i class="fas fa-podcast"></i>
@@ -57,7 +57,7 @@ if (strlen($f_deskripsi) > 200) {
         </div>
         
         <div class="d-flex align-items-center flex-grow-1 justify-content-end gap-3">
-            <audio id="podcast-audio-player" controls class="w-100 w-md-auto" style="max-width: 400px; height: 35px;"></audio>
+            <audio id="podcast-audio-player" controls class="w-100" style="max-width: 300px; height: 32px; flex-grow: 1;"></audio>
             <button onclick="closePodcastPlayer()" class="btn btn-sm btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;" title="Tutup Pemutar">
                 <i class="fas fa-times"></i>
             </button>
@@ -148,6 +148,36 @@ if (strlen($f_deskripsi) > 200) {
     .close-modal-btn { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 10000; }
     .back-to-top-btn { opacity: 0.8; transition: all 0.3s ease; }
     .back-to-top-btn:hover { opacity: 1; transform: translateY(-5px); }
+    
+    /* Responsive Podcast Player */
+    @media (max-width: 768px) {
+        #podcast-player-container {
+            padding: 10px !important;
+        }
+        #podcast-audio-player {
+            max-width: 250px !important;
+            height: 28px !important;
+        }
+    }
+    
+    @media (max-width: 575px) {
+        #podcast-player-container {
+            padding: 8px !important;
+        }
+        #podcast-player-container .container-fluid {
+            flex-direction: column;
+            gap: 8px !important;
+        }
+        #podcast-audio-player {
+            max-width: 100% !important;
+            height: 26px !important;
+            order: 3;
+            width: 100% !important;
+        }
+        #podcast-title {
+            font-size: 0.75rem !important;
+        }
+    }
 </style>
 
 </body>
