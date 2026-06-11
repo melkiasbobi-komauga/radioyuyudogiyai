@@ -104,6 +104,16 @@ require_once 'header_admin.php';
                                 placeholder="Contoh: Dinas Komunikasi dan Informatika">
                         </div>
 
+                        <!-- App Download URL -->
+                        <div>
+                            <label for="app_download_url" class="block text-sm font-semibold text-gray-700 mb-2">Link Download Aplikasi (APK)</label>
+                            <input type="url" name="app_download_url" id="app_download_url" 
+                                value="<?php echo htmlspecialchars($profil['app_download_url'] ?? ''); ?>"
+                                class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition duration-200 p-3 border shadow-sm"
+                                placeholder="https://example.com/app.apk">
+                            <p class="text-xs text-gray-500 mt-1">Link ini akan digunakan pada popup download aplikasi di halaman depan.</p>
+                        </div>
+
                         <!-- Upload Logo -->
                         <div class="border-t border-gray-100 pt-4 mt-2">
                             <label class="block text-sm font-semibold text-gray-700 mb-3">Logo Website</label>

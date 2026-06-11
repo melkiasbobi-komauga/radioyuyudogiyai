@@ -43,6 +43,24 @@ if (strlen($f_deskripsi) > 200) {
     </div>
 </div>
 
+<!-- App Download Popup -->
+<div id="app-download-popup" class="app-popup-overlay">
+    <div class="app-popup-content shadow-lg border border-light">
+        <button class="close-app-popup" onclick="closeAppPopup()">&times;</button>
+        <div class="app-popup-header text-center mb-3">
+            <img src="images/<?php echo htmlspecialchars($logoFile); ?>" alt="Logo Radio Yuyu" class="app-popup-logo mb-3">
+            <h4 class="fw-bold font-teko mb-1">DOWNLOAD APLIKASI</h4>
+            <p class="small text-muted mb-0">Dengarkan siaran kami kapan saja dan di mana saja melalui aplikasi Android resmi.</p>
+        </div>
+        <div class="app-popup-body text-center">
+            <a href="<?php echo htmlspecialchars($header_profil['app_download_url'] ?? '#'); ?>" class="btn btn-primary w-100 rounded-pill py-3 fw-bold mb-3 shadow-sm hover-scale">
+                <i class="fab fa-android me-2"></i> DOWNLOAD APK SEKARANG
+            </a>
+            <p class="x-small text-muted mb-0">Versi Terbaru - Stabil & Ringan</p>
+        </div>
+    </div>
+</div>
+
 <!-- PEMUTAR PODCAST FIXED -->
 <div id="podcast-player-container" class="fixed-bottom bg-dark text-white p-2 p-md-3 shadow-lg border-top border-warning" style="display:none; z-index: 1050;">
     <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -148,6 +166,61 @@ if (strlen($f_deskripsi) > 200) {
     .close-modal-btn { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 10000; }
     .back-to-top-btn { opacity: 0.8; transition: all 0.3s ease; }
     .back-to-top-btn:hover { opacity: 1; transform: translateY(-5px); }
+    
+    /* App Download Popup Styles */
+    .app-popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .app-popup-overlay.active {
+        display: flex;
+        opacity: 1;
+    }
+    .app-popup-content {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 24px;
+        max-width: 400px;
+        width: 90%;
+        position: relative;
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+    }
+    .app-popup-overlay.active .app-popup-content {
+        transform: translateY(0);
+    }
+    .app-popup-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+    .close-app-popup {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #94a3b8;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .close-app-popup:hover {
+        color: #1e293b;
+    }
+    .x-small { font-size: 0.7rem; }
     
     /* Responsive Podcast Player */
     @media (max-width: 768px) {

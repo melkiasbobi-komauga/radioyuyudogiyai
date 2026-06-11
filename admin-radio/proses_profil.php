@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // 2. Simpan Data Teks
         // Kita list field yang diizinkan agar aman
         $allowedFields = [
-            'station_name', 'organization_name', 'copyright_text',
+            'station_name', 'organization_name', 'copyright_text', 'app_download_url',
             'profil_singkat', 'sejarah', 'visi', 'misi',
             'alamat_kantor', 'email_kontak', 'telepon_kontak', 'iframe_peta'
         ];

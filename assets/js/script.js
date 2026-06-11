@@ -252,4 +252,38 @@ document.addEventListener('DOMContentLoaded', function() {
     if(hamburgerBtn && navMenu) {
         hamburgerBtn.onclick = (e) => { e.preventDefault(); navMenu.classList.toggle('active'); };
     }
+
+    // --- 6. APP DOWNLOAD POPUP LOGIC ---
+    const appPopup = document.getElementById('app-download-popup');
+    
+    window.showAppPopup = function() {
+        if (appPopup) {
+            appPopup.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+    };
+
+    window.closeAppPopup = function() {
+        if (appPopup) {
+            appPopup.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            // Set cookie/localStorage so it doesn't show again immediately
+            localStorage.setItem('app_popup_shown', Date.now());
+        }
+    };
+
+    // Auto show popup after 5 seconds if not shown in last 24 hours
+    const lastShown = localStorage.getItem('app_popup_shown');
+    const oneDay = 24 * 60 * 60 * 1000;
+    
+    if (!lastShown || (Date.now() - lastShown > oneDay)) {
+        setTimeout(showAppPopup, 5000);
+    }
+
+    // Close popup on click outside content
+    if (appPopup) {
+        appPopup.addEventListener('click', function(e) {
+            if (e.target === appPopup) closeAppPopup();
+        });
+    }
 });
