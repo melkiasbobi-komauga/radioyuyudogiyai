@@ -55,29 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
 
-    // --- 2. GALLERY MODAL LOGIC (FIX) ---
-    // Mencari semua gambar di dalam kartu galeri atau berita yang memiliki class img-fluid/gallery-img
-    // Kita gunakan event delegation agar aman jika elemen diload via ajax
+    // --- 2. GALLERY MODAL LOGIC ---
+    // Handle close modal click events
     document.body.addEventListener('click', function(e) {
-        // Cek apakah yang diklik adalah gambar di dalam galeri
-        if (e.target.classList.contains('gallery-img') || e.target.closest('.gallery-img-wrapper')) {
-            e.preventDefault(); // Mencegah link pindah halaman
-            
-            const imgElement = e.target.tagName === 'IMG' ? e.target : e.target.querySelector('img');
-            
-            if (imgElement) {
-                const src = imgElement.src;
-                modalImage.src = src;
-                imageModal.style.display = 'flex'; // Tampilkan modal
-                setTimeout(() => imageModal.classList.add('active'), 10); // Animasi
-            }
-        }
-        
-        // Cek jika tombol close modal diklik
         if (e.target.classList.contains('close-modal-btn') || e.target === imageModal) {
-            imageModal.style.display = 'none';
-            imageModal.classList.remove('active');
-            modalImage.src = '';
+            if (imageModal) {
+                imageModal.style.display = 'none';
+                imageModal.classList.remove('active');
+                if (modalImage) modalImage.src = '';
+            }
         }
     });
 
@@ -253,7 +239,81 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburgerBtn.onclick = (e) => { e.preventDefault(); navMenu.classList.toggle('active'); };
     }
 
-    // --- 6. APP DOWNLOAD POPUP LOGIC ---
+    // --- 6. GALLERY MODAL & FILTER LOGIC ---
+    window.openImageModal = function(src, title) {
+        if (modalImage && imageModal) {
+            modalImage.src = src;
+            const caption = document.getElementById('modal-caption');
+            if (caption) caption.innerText = title;
+            imageModal.style.display = 'flex';
+            setTimeout(() => imageModal.classList.add('active'), 10);
+        }
+    };
+
+    window.openVideoModal = function(url, title) {
+        const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+        const videoFrame = document.getElementById('videoFrame');
+        const videoTitle = document.getElementById('videoModalTitle');
+        
+        if (videoFrame) {
+            let videoId = '';
+            // Parse YouTube ID
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            
+            if (match && match[2].length === 11) {
+                videoId = match[2];
+                videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else {
+                videoFrame.src = url; // Fallback to original URL
+            }
+        }
+        
+        if (videoTitle) videoTitle.innerText = title;
+        videoModal.show();
+    };
+
+    window.stopVideo = function() {
+        const videoFrame = document.getElementById('videoFrame');
+        if (videoFrame) videoFrame.src = '';
+    };
+
+    // Handle video modal close via Bootstrap events
+    const videoModalEl = document.getElementById('videoModal');
+    if (videoModalEl) {
+        videoModalEl.addEventListener('hidden.bs.modal', function () {
+            stopVideo();
+        });
+    }
+
+    window.filterGaleri = function(type) {
+        const items = document.querySelectorAll('.gallery-item-col');
+        const buttons = document.querySelectorAll('[onclick^="filterGaleri"]');
+        
+        // Update button states
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(`'${type}'`)) {
+                btn.classList.add('btn-primary', 'active-filter');
+                btn.classList.remove('btn-outline-light', 'text-muted');
+            } else {
+                btn.classList.remove('btn-primary', 'active-filter');
+                btn.classList.add('btn-outline-light', 'text-muted');
+            }
+        });
+
+        // Filter items
+        items.forEach(item => {
+            if (type === 'all' || item.getAttribute('data-type') === type) {
+                item.style.display = 'block';
+                setTimeout(() => item.style.opacity = '1', 10);
+            } else {
+                item.style.opacity = '0';
+                setTimeout(() => item.style.display = 'none', 300);
+            }
+        });
+    };
+
+    // --- 7. APP DOWNLOAD POPUP LOGIC ---
     const appPopup = document.getElementById('app-download-popup');
     
     window.showAppPopup = function() {

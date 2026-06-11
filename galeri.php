@@ -10,9 +10,7 @@ $galeri_from_db = fetchAll($pdo, 'galeri', ['orderBy' => 'tanggal_upload DESC'])
 
 <!-- HERO SECTION (Header Halaman) -->
 <section class="page-header position-relative d-flex align-items-center justify-content-center" style="
-    width: 100vw; 
-    margin-left: calc(-50vw + 50%); 
-    margin-right: calc(-50vw + 50%); 
+    width: 100%; 
     background: linear-gradient(135deg, #1a237e 0%, #0d1346 100%); 
     margin-top: -25px; 
     padding-top: 100px !important; 
@@ -232,6 +230,21 @@ $galeri_from_db = fetchAll($pdo, 'galeri', ['orderBy' => 'tanggal_upload DESC'])
     }
     
     .fade-in { transition: opacity 0.3s ease; }
+    
+    /* Responsive Gallery */
+    @media (max-width: 768px) {
+        .page-header { padding-top: 80px !important; padding-bottom: 60px !important; }
+        .page-header .display-5 { font-size: 2rem; }
+        .gallery-img-wrapper { height: 200px; }
+    }
+    
+    @media (max-width: 575px) {
+        .page-header { padding-top: 60px !important; padding-bottom: 40px !important; }
+        .page-header .display-5 { font-size: 1.5rem; }
+        .page-header .lead { font-size: 0.9rem; }
+        .gallery-img-wrapper { height: 150px; }
+        .gallery-card { border-radius: 12px; }
+    }
 </style>
 
 <?php require_once 'templates/footer.php'; ?>
