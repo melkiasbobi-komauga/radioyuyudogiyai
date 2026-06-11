@@ -122,9 +122,6 @@ $dynamicTitle = isset($pageTitle) ? $pageTitle . " | " . $stationName : $station
             </nav>
 
             <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-warning rounded-pill d-none d-sm-flex align-items-center fw-bold" onclick="showAppPopup()">
-                    <i class="fas fa-download me-1"></i> APP
-                </button>
                 <button class="mobile-toggle d-lg-none" id="hamburger-btn"><i class="fas fa-bars"></i></button>
             </div>
         </div>

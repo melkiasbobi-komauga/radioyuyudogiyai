@@ -25,19 +25,21 @@ define('BASE_URL', $protocol . '://' . $host . $path);
 date_default_timezone_set('Asia/Jayapura');
 
 // 2. KONEKSI DATABASE UTAMA (PDO) - AMAN
-// Menggunakan variabel global $pdo agar bisa diakses di mana saja
-try {
-    $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
-    $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Error akan melempar Exception (Aman untuk debugging)
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,     // Hasil query otomatis jadi Array Associative
-        PDO::ATTR_EMULATE_PREPARES   => false,                // Gunakan native prepared statements (Anti SQL Injection)
-    ];
-    $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
-} catch (PDOException $e) {
-    // Jangan tampilkan error detail ke user, cukup pesan umum
-    error_log("Database Error: " . $e->getMessage());
-    die("Maaf, terjadi gangguan koneksi ke database.");
+if (file_exists(__DIR__ . '/config_preview.php')) {
+    require_once __DIR__ . '/config_preview.php';
+} else {
+    try {
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+        $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+        die("Maaf, terjadi gangguan koneksi ke database.");
+    }
 }
 
 // Fungsi pembantu agar admin panel lama tetap jalan jika memanggil getDBConnection()
